@@ -10,6 +10,20 @@ def index():
     return index_num
 
 
+def learned_words(language):
+    list_new = []
+    flag = True
+
+    for v in data_list[language]:
+        for v2 in data_wtl_dict[language]:
+            if v == v2 and v not in list_new:
+                flag = False
+        if flag:
+            list_new.append(v)
+        flag = True
+    return list_new
+
+
 def next_card(button_pressed):
     global index_number, flip_card
     index_number = index()
@@ -55,16 +69,27 @@ except FileNotFoundError:
 
 #recorremos el diccionario wtl y buscamos en el diccionario original para remover las palabras que ya sabemos
 
-list_new_french = []
+# for v in data_list["French"]:
+#     for v2 in data_wtl_dict["French"]:
+#         if v == v2 and v not in list_new_french:
+#             flag = False
+#     if flag:
+#         list_new_french.append(v)
+#     flag = True
+#
+# for ve in data_list["English"]:
+#     for v3 in data_wtl_dict["English"]:
+#         if ve == v3 and ve not in list_new_english:
+#             flag = False
+#     if flag:
+#         list_new_english.append(ve)
+#     flag = True
 
-for v in data_list["French"]:
-    for v2 in data_wtl_dict["French"]:
-        if v != v2:
-            list_new_french.append(v)
+# print(list_new_french)
+# print(list_new_english)
 
-print(list_new_french)
-
-
+data_list["French"] = learned_words("French")
+data_list["English"] = learned_words("English")
 
 #Ejemplo de como iterar en 2 dictionaries
 # for (k, v), (k2, v2) in zip(data_wtl_dict.items(), data_wtl_dict.items()):
@@ -72,7 +97,7 @@ print(list_new_french)
 #         print((k, v), (k2, v2))
 #
 
-
+print(data_list)
 
 #Crea ventana de programa
 window = Tk()
